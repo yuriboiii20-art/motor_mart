@@ -1,0 +1,14 @@
+{
+  "name": "kaarzo",
+  "version": "1.0.0",
+  "description": "KAARZO - Bangalore's Premier Marketplace for Verified Dealership Cars",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

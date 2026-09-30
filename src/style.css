@@ -1,0 +1,1534 @@
+/* ==========================================================================
+   KAARZO DESIGN SYSTEM & STYLESHEET
+   Bangalore's Premier Marketplace for Verified Dealership Cars
+   ========================================================================== */
+
+:root {
+  /* Brand Tokens */
+  --brand-gold: #F6C43D;
+  --brand-gold-hover: #E0AF2B;
+  --brand-gold-glow: rgba(246, 196, 61, 0.28);
+  --brand-gold-light: rgba(246, 196, 61, 0.12);
+  --brand-gold-subtle: rgba(246, 196, 61, 0.06);
+
+  /* Dark Theme Surfaces */
+  --dark-bg: #0C0E12;
+  --dark-surface: #14171D;
+  --dark-card: #1A1F26;
+  --dark-card-hover: #222832;
+  --dark-border: #28303B;
+  --dark-text-main: #F3F4F6;
+  --dark-text-muted: #9CA3AF;
+
+  /* Light Canvas Surfaces */
+  --light-bg: #FFFFFF;
+  --light-surface: #F8FAFC;
+  --light-surface-alt: #F1F5F9;
+  --light-card: #FFFFFF;
+  --light-border: #E2E8F0;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+
+  /* Accent & Action Colors */
+  --whatsapp-green: #25D366;
+  --whatsapp-hover: #1EBE5D;
+  --accent-red: #EF4444;
+  --accent-blue: #3B82F6;
+  --accent-emerald: #10B981;
+
+  /* Elevation & Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.06);
+  --shadow-glow: 0 0 24px rgba(246, 196, 61, 0.35);
+  --shadow-card: 0 8px 24px -4px rgba(15, 23, 42, 0.08);
+  --shadow-card-hover: 0 20px 32px -8px rgba(15, 23, 42, 0.16);
+
+  /* Layout & Sizing */
+  --max-width: 1280px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Typography */
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Base Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--light-bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   NAVIGATION & HEADER
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(12, 14, 18, 0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--dark-border);
+  transition: all 0.3s ease;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 74px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Logo */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.brand-icon-box {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--brand-gold) 0%, #D49B1A 100%);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px var(--brand-gold-glow);
+}
+
+.brand-icon-box svg {
+  width: 22px;
+  height: 22px;
+  fill: #0C0E12;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.brand-tagline {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--brand-gold);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Location Badge */
+.location-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--dark-border);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  color: #E2E8F0;
+  font-weight: 500;
+}
+
+.location-selector svg {
+  width: 14px;
+  height: 14px;
+  color: var(--brand-gold);
+}
+
+/* Nav Links */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #CBD5E1;
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 6px 0;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--brand-gold);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--brand-gold);
+  border-radius: 2px;
+}
+
+/* Header Action Buttons */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.btn-dealer-portal {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-dealer-portal:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary-gold {
+  background: var(--brand-gold);
+  color: #0C0E12;
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px var(--brand-gold-glow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary-gold:hover {
+  background: var(--brand-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--brand-gold-glow);
+}
+
+.mobile-menu-btn {
+  display: none;
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  padding: 6px;
+}
+
+/* ==========================================================================
+   HERO SECTION (High Impact Automotive Visual)
+   ========================================================================== */
+
+.hero-section {
+  position: relative;
+  background-color: var(--dark-bg);
+  background-image: linear-gradient(to bottom, rgba(12, 14, 18, 0.75), rgba(12, 14, 18, 0.95)), url('/src/assets/cars/kaarzo_hero_car_1790786058193.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  padding: 90px 0 110px;
+  color: #FFFFFF;
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(246, 196, 61, 0.12);
+  border: 1px solid rgba(246, 196, 61, 0.35);
+  color: var(--brand-gold);
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.hero-title span.highlight {
+  color: var(--brand-gold);
+  background: linear-gradient(135deg, #FFE485 0%, var(--brand-gold) 60%, #D89812 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtext {
+  font-size: 1.15rem;
+  color: #CBD5E1;
+  line-height: 1.65;
+  margin-bottom: 38px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hero Search Widget */
+.hero-search-box {
+  background: rgba(22, 26, 32, 0.88);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-xl);
+  padding: 18px 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  margin-bottom: 40px;
+}
+
+.search-form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.search-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--dark-text-muted);
+  margin-bottom: 6px;
+}
+
+.search-select, .search-input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--dark-border);
+  color: #FFFFFF;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  font-weight: 500;
+  outline: none;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.search-select option {
+  background: #14171D;
+  color: #FFFFFF;
+}
+
+.search-select:focus, .search-input:focus {
+  border-color: var(--brand-gold);
+  box-shadow: 0 0 0 3px var(--brand-gold-glow);
+}
+
+.btn-hero-search {
+  height: 48px;
+  background: var(--brand-gold);
+  color: #0C0E12;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0 28px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px var(--brand-gold-glow);
+  align-self: flex-end;
+}
+
+.btn-hero-search:hover {
+  background: var(--brand-gold-hover);
+  transform: translateY(-2px);
+}
+
+/* Trust Stats Counters */
+.hero-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 30px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--brand-gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   CATEGORY TABS & CAR FLEET SHOWCASE ("Cars of the Month")
+   ========================================================================== */
+
+.section-padding {
+  padding: 80px 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 36px;
+}
+
+.section-header-center {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 48px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brand-gold);
+  background: rgba(246, 196, 61, 0.1);
+  border: 1px solid rgba(246, 196, 61, 0.25);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 10px;
+}
+
+.section-tag-dark {
+  background: #1E242C;
+  border-color: #2D3748;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-primary);
+  letter-spacing: -0.4px;
+}
+
+.section-title.light-text {
+  color: #FFFFFF;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.section-subtitle.light-text {
+  color: #94A3B8;
+}
+
+/* Interactive Category Tabs */
+.category-tabs-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.cat-tab-btn {
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--light-surface-alt);
+  border: 1px solid var(--light-border);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cat-tab-btn:hover {
+  background: #E2E8F0;
+  color: var(--text-primary);
+}
+
+.cat-tab-btn.active {
+  background: #0C0E12;
+  color: var(--brand-gold);
+  border-color: #0C0E12;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cat-tab-count {
+  font-size: 0.75rem;
+  padding: 2px 7px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-pill);
+}
+
+.cat-tab-btn:not(.active) .cat-tab-count {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   CAR CARDS GRID (Weblium Reference Exact Style)
+   ========================================================================== */
+
+.cars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 28px;
+}
+
+.car-card {
+  background: #FFFFFF;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.car-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(246, 196, 61, 0.5);
+}
+
+/* Card Visual Frame */
+.car-card-media {
+  position: relative;
+  background: #161A20;
+  height: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.car-card:hover .car-card-image {
+  transform: scale(1.05);
+}
+
+.car-badge-overlay {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.badge-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.badge-gold {
+  background: var(--brand-gold);
+  color: #0C0E12;
+}
+
+.badge-dark {
+  background: rgba(12, 14, 18, 0.85);
+  backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.rto-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(12, 14, 18, 0.9);
+  backdrop-filter: blur(6px);
+  color: var(--brand-gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(246, 196, 61, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Card Body */
+.car-card-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.car-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.car-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.car-card-price-block {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.car-card-price {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.1;
+}
+
+.car-card-emi {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Spec Badges 4-Grid */
+.car-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  background: var(--light-surface);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  margin-bottom: 18px;
+  border: 1px solid var(--light-border);
+}
+
+.spec-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.spec-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--brand-gold);
+  flex-shrink: 0;
+}
+
+/* Dealer mini bar */
+.car-dealer-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--light-border);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.dealer-name {
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dealer-rating {
+  color: #D97706;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Action Buttons Dual Setup */
+.car-card-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.btn-card-details {
+  background: #0C0E12;
+  color: #FFFFFF;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-card-details:hover {
+  background: var(--brand-gold);
+  color: #0C0E12;
+}
+
+.btn-card-whatsapp {
+  background: rgba(37, 211, 102, 0.12);
+  color: #15803D;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.btn-card-whatsapp:hover {
+  background: var(--whatsapp-green);
+  color: #FFFFFF;
+  border-color: var(--whatsapp-green);
+}
+
+/* ==========================================================================
+   INTERACTIVE EMI CALCULATOR
+   ========================================================================== */
+
+.calculator-section {
+  background: var(--dark-bg);
+  color: #FFFFFF;
+  border-top: 1px solid var(--dark-border);
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.calc-box {
+  background: var(--dark-surface);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.calc-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calc-field-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #E2E8F0;
+}
+
+.calc-field-val {
+  color: var(--brand-gold);
+  font-weight: 700;
+}
+
+.calc-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: #2D3748;
+  outline: none;
+}
+
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--brand-gold);
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--brand-gold-glow);
+  transition: transform 0.15s ease;
+}
+
+.calc-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* EMI Result Card */
+.calc-result-card {
+  background: linear-gradient(135deg, #1C2128 0%, #15191F 100%);
+  border: 1px solid rgba(246, 196, 61, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 36px 30px;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.calc-result-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94A3B8;
+  margin-bottom: 8px;
+}
+
+.calc-emi-number {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--brand-gold);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.calc-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-top: 1px solid var(--dark-border);
+  font-size: 0.88rem;
+  color: #CBD5E1;
+}
+
+.calc-breakdown-row span.val {
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   BANGALORE DEALERS DIRECTORY SECTION
+   ========================================================================== */
+
+.dealers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+.dealer-card {
+  background: #FFFFFF;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.dealer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--brand-gold);
+}
+
+.dealer-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.dealer-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.dealer-locality-badge {
+  background: rgba(246, 196, 61, 0.12);
+  color: #8D6300;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.dealer-tagline {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.dealer-address {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.dealer-address svg {
+  width: 16px;
+  height: 16px;
+  color: var(--brand-gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dealer-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.dealer-tag {
+  font-size: 0.75rem;
+  background: var(--light-surface-alt);
+  color: var(--text-secondary);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.dealer-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--light-border);
+}
+
+/* ==========================================================================
+   ADVANCED SEARCH & FILTER PAGE
+   ========================================================================== */
+
+.search-page-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 32px;
+  padding: 40px 0 80px;
+}
+
+.search-sidebar {
+  background: #FFFFFF;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  height: fit-content;
+  position: sticky;
+  top: 94px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-group {
+  margin-bottom: 22px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--light-border);
+}
+
+.filter-group:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.filter-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.filter-checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  accent-color: var(--brand-gold);
+  width: 16px;
+  height: 16px;
+}
+
+.search-results-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  background: #FFFFFF;
+  padding: 16px 20px;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-md);
+}
+
+.sort-select {
+  padding: 8px 14px;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  background: #FFFFFF;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   FAQ ACCORDION COMPONENT
+   ========================================================================== */
+
+.faq-section {
+  background: var(--light-surface);
+}
+
+.faq-container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.faq-category-block {
+  margin-bottom: 36px;
+}
+
+.faq-category-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.faq-category-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: var(--brand-gold);
+  border-radius: 2px;
+}
+
+.faq-item {
+  background: #FFFFFF;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.faq-item.open {
+  border-color: rgba(246, 196, 61, 0.6);
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 18px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+}
+
+.faq-icon {
+  font-size: 1.25rem;
+  color: var(--brand-gold);
+  transition: transform 0.25s ease;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 22px 20px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  display: none;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+/* ==========================================================================
+   ABOUT US & TRUST SECTION
+   ========================================================================== */
+
+.about-hero {
+  background: var(--dark-bg);
+  color: #FFFFFF;
+  padding: 80px 0;
+  text-align: center;
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.about-card {
+  background: #FFFFFF;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--brand-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.about-icon-box {
+  width: 60px;
+  height: 60px;
+  background: rgba(246, 196, 61, 0.15);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: #9E7000;
+}
+
+.about-icon-box svg {
+  width: 30px;
+  height: 30px;
+}
+
+.about-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.about-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   MODALS (Car Details Modal & Dealer Onboarding)
+   ========================================================================== */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-container {
+  background: #FFFFFF;
+  border-radius: var(--radius-xl);
+  max-width: 960px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  transform: translateY(20px) scale(0.97);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active .modal-container {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background: #000000;
+}
+
+.modal-car-hero {
+  position: relative;
+  height: 380px;
+  background: #111418;
+}
+
+.modal-car-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-car-content {
+  padding: 36px;
+}
+
+.specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.specs-table tr {
+  border-bottom: 1px solid var(--light-border);
+}
+
+.specs-table td {
+  padding: 12px 16px;
+  font-size: 0.9rem;
+}
+
+.specs-table td.spec-title {
+  font-weight: 600;
+  color: var(--text-muted);
+  width: 40%;
+}
+
+.specs-table td.spec-value {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Modal Form */
+.modal-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.form-control {
+  padding: 11px 14px;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--brand-gold);
+  box-shadow: 0 0 0 3px var(--brand-gold-glow);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.site-footer {
+  background: #080A0D;
+  color: #94A3B8;
+  padding: 70px 0 30px;
+  border-top: 1px solid var(--dark-border);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.footer-col-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-link {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--brand-gold);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (Tablets & Mobile)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 2.6rem;
+  }
+  .search-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .search-page-layout {
+    grid-template-columns: 1fr;
+  }
+  .search-sidebar {
+    position: static;
+  }
+  .calc-box {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+  .hero-title {
+    font-size: 2.1rem;
+  }
+  .hero-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .search-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .cars-grid, .dealers-grid, .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .modal-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
