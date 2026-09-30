@@ -14,7 +14,8 @@ const state = {
   sortBy: 'featured',
   activeCarModal: null,
   activeDealerModal: false,
-  mobileMenuOpen: false,
+  mobileNavOpen: false,
+  mobileFilterOpen: false,
   // EMI Calculator defaults
   emiLoanAmount: 1500000, // ₹ 15 Lakh
   emiInterestRate: 9.5,   // 9.5%
@@ -27,6 +28,8 @@ const app = document.getElementById('app');
 // Router Listener
 window.addEventListener('hashchange', () => {
   state.currentRoute = window.location.hash.slice(1) || '/';
+  state.mobileNavOpen = false;
+  state.mobileFilterOpen = false;
   window.scrollTo({ top: 0, behavior: 'smooth' });
   renderApp();
 });
@@ -68,7 +71,8 @@ const icons = {
   whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.301-.15-1.78-.879-2.056-.98-.276-.1-.476-.15-.677.15-.2.3-.777.98-.952 1.18-.175.2-.351.226-.652.075-.3-.15-1.267-.467-2.414-1.49-.893-.796-1.496-1.78-1.671-2.08-.175-.3-.019-.462.131-.611.136-.134.301-.35.452-.525.15-.175.2-.3.301-.5.1-.2.05-.375-.025-.525-.075-.15-.677-1.634-.928-2.238-.244-.589-.493-.51-.677-.52l-.577-.01c-.2 0-.526.075-.802.375-.276.3-1.053 1.03-1.053 2.512s1.078 2.912 1.228 3.113c.15.2 2.122 3.24 5.141 4.542.718.31 1.279.495 1.716.634.721.23 1.377.197 1.896.12.578-.087 1.78-.727 2.03-1.43.25-.702.25-1.303.175-1.43-.075-.126-.275-.201-.576-.351zM12.04 2C6.518 2 2.03 6.488 2.03 12.01c0 1.942.555 3.753 1.517 5.289L2 22l4.832-1.503c1.474.869 3.187 1.365 5.008 1.365 5.522 0 10.01-4.488 10.01-10.01 0-5.522-4.488-10.01-9.81-9.862z"/></svg>`,
   star: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
   search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
-  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`,
+  filter: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`
 };
 
 // ==========================================================================
@@ -77,6 +81,7 @@ const icons = {
 function renderApp() {
   app.innerHTML = `
     ${renderHeader()}
+    ${renderMobileNavDrawer()}
     <main id="main-content">
       ${renderCurrentRoute()}
     </main>
@@ -136,12 +141,58 @@ function renderHeader() {
             ${icons.search}
             <span>Find Cars</span>
           </a>
-          <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Menu">
+          <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Drawer">
             ☰
           </button>
         </div>
       </div>
     </header>
+  `;
+}
+
+// ==========================================================================
+// MOBILE NAVIGATION DRAWER
+// ==========================================================================
+function renderMobileNavDrawer() {
+  const isRoute = (path) => (state.currentRoute === path ? 'active' : '');
+
+  return `
+    <div class="mobile-nav-backdrop ${state.mobileNavOpen ? 'active' : ''}" id="mobile-nav-backdrop">
+      <div class="mobile-nav-drawer">
+        <div class="mobile-nav-header">
+          <div class="brand-logo">
+            <div class="brand-icon-box" style="width: 32px; height: 32px;">
+              ${icons.car}
+            </div>
+            <span class="brand-name" style="font-size: 1.25rem;">KAARZO</span>
+          </div>
+          <button class="mobile-nav-close" id="mobile-nav-close-btn" aria-label="Close Navigation">✕</button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.06); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 20px;">
+          ${icons.mapPin}
+          <span>Bengaluru, Karnataka Hub</span>
+        </div>
+
+        <ul class="mobile-nav-list">
+          <li class="mobile-nav-item"><a href="#/" class="${isRoute('/')}">Home Showcase <span>→</span></a></li>
+          <li class="mobile-nav-item"><a href="#/buy-cars" class="${isRoute('/buy-cars')}">Buy Certified Cars <span>→</span></a></li>
+          <li class="mobile-nav-item"><a href="#/search" class="${isRoute('/search')}">Advanced Search <span>→</span></a></li>
+          <li class="mobile-nav-item"><a href="#/about" class="${isRoute('/about')}">About KAARZO <span>→</span></a></li>
+          <li class="mobile-nav-item"><a href="#/faq" class="${isRoute('/faq')}">FAQ & Documents <span>→</span></a></li>
+          <li class="mobile-nav-item"><a href="#/privacy" class="${isRoute('/privacy')}">Privacy Policy <span>→</span></a></li>
+        </ul>
+
+        <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px;">
+          <button class="btn-primary-gold" id="btn-mobile-dealer-modal" style="width: 100%; padding: 12px; font-size: 0.9rem;">
+            ${icons.shield} Register Showroom
+          </button>
+          <a href="tel:+918049207000" style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #CBD5E1; font-size: 0.85rem; padding: 10px; border: 1px solid var(--dark-border); border-radius: var(--radius-pill);">
+            📞 Bangalore Support: +91 80 4920 7000
+          </a>
+        </div>
+      </div>
+    </div>
   `;
 }
 
@@ -164,10 +215,10 @@ function renderFooter() {
                 <span class="brand-tagline">Bangalore Dealerships</span>
               </div>
             </div>
-            <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+            <p style="font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px;">
               KAARZO is Bangalore’s premier automotive marketplace bridging car buyers directly with verified, certified local car dealerships across Karnataka. 100% RTO verified and 200-point inspected inventory.
             </p>
-            <div style="display: flex; gap: 12px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
               <span class="badge-tag badge-gold">KA RTO Verified</span>
               <span class="badge-tag badge-dark">200+ Point Inspection</span>
             </div>
@@ -202,15 +253,15 @@ function renderFooter() {
           <!-- Col 4: Bangalore Office & Contact -->
           <div>
             <h4 class="footer-col-title">Bengaluru Headquarters</h4>
-            <p style="font-size: 0.88rem; line-height: 1.5; margin-bottom: 12px;">
+            <p style="font-size: 0.86rem; line-height: 1.5; margin-bottom: 12px;">
               KAARZO Mobility Technologies Pvt Ltd<br>
               #104, 100 Feet Road, HAL 2nd Stage,<br>
               Indiranagar, Bengaluru, Karnataka 560038
             </p>
-            <p style="font-size: 0.88rem; color: #FFFFFF; font-weight: 600; margin-bottom: 8px;">
+            <p style="font-size: 0.86rem; color: #FFFFFF; font-weight: 600; margin-bottom: 6px;">
               📞 +91 80 4920 7000
             </p>
-            <p style="font-size: 0.88rem; color: var(--brand-gold);">
+            <p style="font-size: 0.86rem; color: var(--brand-gold);">
               ✉️ support@kaarzo.in
             </p>
           </div>
@@ -220,7 +271,7 @@ function renderFooter() {
           <div>
             © 2026 KAARZO Mobility Technologies. All rights reserved. Registered under Government of Karnataka.
           </div>
-          <div style="display: flex; gap: 20px;">
+          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
             <a href="#/privacy" class="footer-link">Privacy Policy</a>
             <a href="#/privacy" class="footer-link">Terms of Service</a>
             <a href="#/faq" class="footer-link">RTO Guidelines</a>
@@ -450,7 +501,7 @@ function renderHomePage() {
           </p>
         </div>
 
-        <!-- Interactive Category Tabs -->
+        <!-- Interactive Category Tabs (Swipeable on mobile) -->
         <div class="category-tabs-container">
           ${categoriesList.map(cat => `
             <button class="cat-tab-btn ${state.selectedCategory === cat.id ? 'active' : ''}" data-cat="${cat.id}">
@@ -465,8 +516,8 @@ function renderHomePage() {
           ${filteredCars.map(car => renderCarCard(car)).join('')}
         </div>
 
-        <div style="text-align: center; margin-top: 50px;">
-          <a href="#/buy-cars" class="btn-primary-gold" style="padding: 14px 36px; font-size: 1rem;">
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="#/buy-cars" class="btn-primary-gold" style="padding: 14px 32px; font-size: 0.95rem;">
             Explore All ${carsData.length} Bangalore Cars →
           </a>
         </div>
@@ -599,7 +650,7 @@ function renderHomePage() {
             <span class="section-tag">Verified Showrooms</span>
             <h2 class="section-title">Top Dealerships in Bangalore</h2>
           </div>
-          <button class="btn-dealer-portal" id="btn-home-dealer-cta" style="background: #0C0E12; color: #FFF;">
+          <button class="btn-dealer-portal" id="btn-home-dealer-cta" style="background: #0C0E12; color: #FFF; display: inline-flex;">
             + Register Showroom
           </button>
         </div>
@@ -629,8 +680,8 @@ function renderHomePage() {
               </div>
 
               <div class="dealer-card-footer">
-                <div style="font-weight: 700; color: #D97706; display: flex; align-items: center; gap: 4px;">
-                  ${icons.star} ${dealer.rating} (${dealer.reviewsCount} reviews)
+                <div style="font-weight: 700; color: #D97706; display: flex; align-items: center; gap: 4px; font-size: 0.88rem;">
+                  ${icons.star} ${dealer.rating} (${dealer.reviewsCount})
                 </div>
                 <a href="https://wa.me/${dealer.whatsapp}?text=Hi%2C%20I%20found%20your%20dealership%20${encodeURIComponent(dealer.name)}%20on%20KAARZO." 
                    target="_blank" 
@@ -653,10 +704,10 @@ function renderHomePage() {
         <h2 class="section-title light-text" style="margin-bottom: 16px;">
           Are You a Car Dealership in Bengaluru?
         </h2>
-        <p class="section-subtitle light-text" style="margin-bottom: 32px;">
+        <p class="section-subtitle light-text" style="margin-bottom: 28px;">
           Join over 500+ verified car showrooms on KAARZO. Get qualified buyer inquiries directly on WhatsApp and sell your inventory faster with zero listing commissions.
         </p>
-        <button class="btn-primary-gold" id="btn-cta-dealer-onboard" style="padding: 14px 36px; font-size: 1rem;">
+        <button class="btn-primary-gold" id="btn-cta-dealer-onboard" style="padding: 14px 32px; font-size: 0.95rem;">
           Register Your Showroom Today →
         </button>
       </div>
@@ -681,7 +732,7 @@ function renderBuyCarsPage() {
           </p>
         </div>
 
-        <!-- Quick Filter Chips -->
+        <!-- Quick Filter Chips (Swipeable on mobile) -->
         <div class="category-tabs-container">
           ${categoriesList.map(cat => `
             <button class="cat-tab-btn ${state.selectedCategory === cat.id ? 'active' : ''}" data-cat="${cat.id}">
@@ -694,10 +745,10 @@ function renderBuyCarsPage() {
           <div style="font-weight: 700; color: var(--text-primary);">
             Showing <span style="color: var(--brand-gold);">${cars.length}</span> Verified Bangalore Cars
           </div>
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Sort By:</label>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Sort:</label>
             <select class="sort-select" id="catalog-sort">
-              <option value="featured">Featured & Recommended</option>
+              <option value="featured">Featured</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="price-desc">Price: High to Low</option>
               <option value="year-desc">Newest Model Year</option>
@@ -715,7 +766,7 @@ function renderBuyCarsPage() {
 }
 
 // ==========================================================================
-// 3. SEARCH PAGE (Faceted Advanced Search)
+// 3. SEARCH PAGE (Faceted Advanced Search with Mobile Drawer)
 // ==========================================================================
 function renderSearchPage() {
   // Filter logic
@@ -767,14 +818,22 @@ function renderSearchPage() {
 
   return `
     <div class="container">
+      <!-- Mobile Filter Trigger Button -->
+      <button class="mobile-filter-trigger" id="btn-toggle-mobile-filters" style="margin-top: 20px;">
+        ${icons.filter} <span>Filters & Locality (${results.length} Cars)</span>
+      </button>
+
       <div class="search-page-layout">
-        <!-- Sidebar Filters -->
-        <aside class="search-sidebar">
+        <!-- Sidebar Filters (Drawer on Mobile) -->
+        <aside class="search-sidebar ${state.mobileFilterOpen ? 'mobile-open' : ''}" id="search-filter-sidebar">
           <div class="sidebar-title">
             <span>Filter Inventory</span>
-            <button id="btn-reset-filters" style="font-size: 0.78rem; color: var(--brand-gold); font-weight: 700;">
-              Reset All
-            </button>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <button id="btn-reset-filters" style="font-size: 0.78rem; color: var(--brand-gold); font-weight: 700;">
+                Reset All
+              </button>
+              ${state.mobileFilterOpen ? `<button id="btn-close-mobile-filters" style="font-size: 1.2rem; padding: 4px;">✕</button>` : ''}
+            </div>
           </div>
 
           <!-- Keyword Search -->
@@ -824,6 +883,12 @@ function renderSearchPage() {
               `).join('')}
             </div>
           </div>
+
+          ${state.mobileFilterOpen ? `
+            <button class="btn-primary-gold" id="btn-apply-mobile-filters" style="width: 100%; margin-top: 20px; padding: 12px;">
+              Apply Filters (${results.length} Cars)
+            </button>
+          ` : ''}
         </aside>
 
         <!-- Main Results Grid -->
@@ -832,7 +897,7 @@ function renderSearchPage() {
             <div style="font-weight: 700;">
               Found <span style="color: var(--brand-gold);">${results.length}</span> matching cars in Bangalore
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
               <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Sort:</label>
               <select class="sort-select" id="search-sort-select">
                 <option value="featured" ${state.sortBy === 'featured' ? 'selected' : ''}>Featured</option>
@@ -869,10 +934,10 @@ function renderAboutPage() {
     <div class="about-hero">
       <div class="container" style="max-width: 820px;">
         <span class="section-tag section-tag-dark">Our Story</span>
-        <h1 class="section-title light-text" style="font-size: 3rem; margin-bottom: 18px;">
+        <h1 class="section-title light-text" style="font-size: 2.5rem; margin-bottom: 16px;">
           Empowering Bangalore’s Local Car Dealers & Discerning Buyers
         </h1>
-        <p class="section-subtitle light-text" style="font-size: 1.1rem; line-height: 1.7;">
+        <p class="section-subtitle light-text" style="font-size: 1.05rem; line-height: 1.7;">
           KAARZO was founded with a singular mission: to bring institutional transparency, verified Karnataka RTO records, and seamless digital commerce to the trusted brick-and-mortar car dealerships of Bengaluru.
         </p>
       </div>
@@ -915,17 +980,17 @@ function renderAboutPage() {
         </div>
 
         <!-- Bangalore Presence -->
-        <div style="margin-top: 80px; background: var(--light-surface); padding: 48px; border-radius: var(--radius-xl); border: 1px solid var(--light-border);">
+        <div style="margin-top: 60px; background: var(--light-surface); padding: 36px 24px; border-radius: var(--radius-xl); border: 1px solid var(--light-border);">
           <div style="max-width: 720px; margin: 0 auto; text-align: center;">
-            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; margin-bottom: 14px;">
+            <h3 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; margin-bottom: 12px;">
               Our Bangalore Network
             </h3>
-            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">
+            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
               From the bustling tech corridors of Whitefield and Electronic City to the prime automotive showrooms in Indiranagar, Jayanagar, and Koramangala, KAARZO partners with over 500+ verified showrooms.
             </p>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
               ${bangaloreLocalities.filter(l => l !== 'All Localities').map(loc => `
-                <span style="background: #FFFFFF; border: 1px solid var(--light-border); padding: 8px 16px; border-radius: var(--radius-pill); font-weight: 600; font-size: 0.85rem;">
+                <span style="background: #FFFFFF; border: 1px solid var(--light-border); padding: 6px 14px; border-radius: var(--radius-pill); font-weight: 600; font-size: 0.82rem;">
                   📍 ${loc}
                 </span>
               `).join('')}
@@ -956,7 +1021,7 @@ function renderFaqPage() {
           ${faqsData.map(cat => `
             <div class="faq-category-block">
               <h3 class="faq-category-title">${cat.category}</h3>
-              ${cat.questions.map((item, idx) => `
+              ${cat.questions.map((item) => `
                 <div class="faq-item">
                   <button class="faq-question">
                     <span>${item.q}</span>
@@ -982,46 +1047,46 @@ function renderPrivacyPage() {
   return `
     <section class="section-padding" style="background: #FFFFFF;">
       <div class="container" style="max-width: 860px;">
-        <div style="margin-bottom: 40px;">
+        <div style="margin-bottom: 36px;">
           <span class="section-tag">Legal & Compliance</span>
-          <h1 class="section-title" style="margin-bottom: 12px;">Privacy Policy & User Terms</h1>
-          <p style="font-size: 0.9rem; color: var(--text-muted);">Last Updated: October 2026 • Bengaluru, Karnataka Jurisdiction</p>
+          <h1 class="section-title" style="margin-bottom: 10px;">Privacy Policy & User Terms</h1>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Last Updated: October 2026 • Bengaluru, Karnataka Jurisdiction</p>
         </div>
 
-        <div style="font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary); display: flex; flex-direction: column; gap: 24px;">
+        <div style="font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary); display: flex; flex-direction: column; gap: 20px;">
           <p>
             Welcome to <strong>KAARZO</strong> ("we," "our," or "us"). KAARZO Mobility Technologies Pvt Ltd is committed to protecting the privacy of buyers, vehicle dealerships, and visitors across our website and digital services. This Privacy Policy explains our practices regarding data collection, vehicle inspection transparency, and communication flows.
           </p>
 
-          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--text-primary);">
+          <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
             1. Information We Collect
           </h3>
           <p>
             We collect information you provide directly, such as your name, contact phone number, email address, and preferred test drive schedule when you submit an inquiry for a vehicle listed on KAARZO. For dealerships, we collect verified trade documents, GST registration numbers, showroom location coordinates, and vehicle inventory specifications.
           </p>
 
-          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--text-primary);">
+          <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
             2. Dealer Communications & WhatsApp Integration
           </h3>
           <p>
             When you click "Chat on WhatsApp" or "Book Test Drive," you are connecting directly with the authorized verified dealership representative in Bangalore holding custody of the vehicle. We do not sell your personal contact numbers to third-party telemarketers.
           </p>
 
-          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--text-primary);">
+          <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
             3. Vehicle History & Karnataka RTO Records
           </h3>
           <p>
             Vehicle details such as RTO registration codes (e.g. KA-01, KA-03, KA-05), insurance validity, odometer readings, and inspection score summaries are displayed for buyer verification and public transparency as authorized by participating dealerships.
           </p>
 
-          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--text-primary);">
+          <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
             4. Security & Data Protection
           </h3>
           <p>
             We implement industry-standard SSL encryption and secured cloud servers located in Indian data regions compliant with the Information Technology Act, 2000 and Digital Personal Data Protection Act.
           </p>
 
-          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--text-primary);">
+          <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
             5. Contact Legal Team
           </h3>
           <p>
@@ -1050,7 +1115,7 @@ function renderCarModal() {
 
         <div class="modal-car-hero">
           <img src="${car.image}" alt="${car.title}">
-          <div style="position: absolute; top: 20px; left: 20px; display: flex; gap: 8px;">
+          <div style="position: absolute; top: 14px; left: 14px; display: flex; gap: 8px;">
             <span class="badge-tag badge-gold">${car.badge}</span>
             <span class="badge-tag badge-dark">${car.rto}</span>
           </div>
@@ -1058,15 +1123,15 @@ function renderCarModal() {
 
         <div class="modal-car-content">
           <!-- Header -->
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
             <div>
-              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
                 ${car.year} • ${car.brand} • ${car.category}
               </span>
-              <h2 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; color: var(--text-primary); margin-top: 4px;">
+              <h2 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-top: 4px; line-height: 1.2;">
                 ${car.title}
               </h2>
-              <div style="display: flex; gap: 12px; margin-top: 6px; font-size: 0.85rem; color: var(--text-secondary);">
+              <div style="display: flex; gap: 10px; margin-top: 6px; font-size: 0.82rem; color: var(--text-secondary);">
                 <span>📍 ${car.dealer.locality}</span>
                 <span>•</span>
                 <span>⭐ Inspection: <strong>${car.inspectionScore}</strong></span>
@@ -1074,21 +1139,21 @@ function renderCarModal() {
             </div>
 
             <div style="text-align: right;">
-              <div style="font-family: var(--font-heading); font-size: 2rem; font-weight: 800; color: #0F172A;">
+              <div style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; color: #0F172A;">
                 ${car.priceFormatted}
               </div>
-              <div style="font-size: 0.85rem; font-weight: 600; color: var(--brand-gold);">
+              <div style="font-size: 0.82rem; font-weight: 600; color: var(--brand-gold);">
                 Estimated EMI: ${car.emiMonthly}
               </div>
             </div>
           </div>
 
-          <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--light-border);">
+          <p style="font-size: 0.92rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--light-border);">
             ${car.overview}
           </p>
 
           <!-- Key Technical Specs Table -->
-          <h3 style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; margin-bottom: 12px;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; margin-bottom: 10px;">
             Vehicle Specifications & Certification
           </h3>
           <table class="specs-table">
@@ -1121,12 +1186,12 @@ function renderCarModal() {
           </table>
 
           <!-- Key Equipment Checklist -->
-          <h3 style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; margin: 24px 0 12px;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; margin: 20px 0 10px;">
             Features & Highlights
           </h3>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 30px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; margin-bottom: 24px;">
             ${car.features.map(f => `
-              <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); background: var(--light-surface); padding: 8px 12px; border-radius: var(--radius-sm);">
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-secondary); background: var(--light-surface); padding: 8px 10px; border-radius: var(--radius-sm);">
                 <span style="color: var(--brand-gold);">${icons.check}</span>
                 <span>${f}</span>
               </div>
@@ -1134,11 +1199,11 @@ function renderCarModal() {
           </div>
 
           <!-- Dealer Card & Test Drive Booking -->
-          <div style="background: var(--light-surface); border: 1px solid var(--light-border); border-radius: var(--radius-lg); padding: 24px; margin-top: 24px;">
+          <div style="background: var(--light-surface); border: 1px solid var(--light-border); border-radius: var(--radius-lg); padding: 20px; margin-top: 20px;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
               <div>
                 <span style="font-size: 0.75rem; font-weight: 700; color: #8D6300; text-transform: uppercase;">Verified Showroom</span>
-                <h4 style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; margin-top: 2px;">
+                <h4 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; margin-top: 2px;">
                   ${car.dealer.name}
                 </h4>
                 <p style="font-size: 0.82rem; color: var(--text-muted);">${car.dealer.locality}</p>
@@ -1154,8 +1219,8 @@ function renderCarModal() {
             </div>
 
             <!-- Booking Form -->
-            <form id="car-test-drive-form" style="border-top: 1px solid var(--light-border); padding-top: 18px;">
-              <h5 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 12px;">
+            <form id="car-test-drive-form" style="border-top: 1px solid var(--light-border); padding-top: 16px;">
+              <h5 style="font-size: 0.92rem; font-weight: 700; margin-bottom: 10px;">
                 Request Doorstep or Showroom Test Drive
               </h5>
               <div class="modal-form-grid">
@@ -1172,7 +1237,7 @@ function renderCarModal() {
                   <input type="text" class="form-control" required placeholder="e.g. Saturday 4 PM at Indiranagar Showroom">
                 </div>
               </div>
-              <button type="submit" class="btn-primary-gold" style="width: 100%; margin-top: 16px; padding: 12px;">
+              <button type="submit" class="btn-primary-gold" style="width: 100%; margin-top: 14px; padding: 12px;">
                 Confirm Test Drive Booking
               </button>
             </form>
@@ -1196,15 +1261,15 @@ function renderDealerModal() {
       <div class="modal-container" style="max-width: 620px;">
         <button class="modal-close-btn" id="btn-close-dealer-modal" aria-label="Close">✕</button>
 
-        <div style="padding: 36px;">
-          <div style="text-align: center; margin-bottom: 24px;">
-            <div class="about-icon-box" style="margin-bottom: 12px;">
+        <div style="padding: 30px 24px;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <div class="about-icon-box" style="margin-bottom: 10px;">
               ${icons.shield}
             </div>
-            <h2 style="font-family: var(--font-heading); font-size: 1.7rem; font-weight: 800;">
+            <h2 style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 800;">
               Register Your Dealership
             </h2>
-            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 6px;">
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
               Join KAARZO’s verified showroom network across Bangalore & Karnataka.
             </p>
           </div>
@@ -1243,7 +1308,7 @@ function renderDealerModal() {
               </div>
             </div>
 
-            <button type="submit" class="btn-primary-gold" style="width: 100%; margin-top: 24px; padding: 12px; font-size: 1rem;">
+            <button type="submit" class="btn-primary-gold" style="width: 100%; margin-top: 20px; padding: 12px; font-size: 0.95rem;">
               Submit for Verification →
             </button>
           </form>
@@ -1257,23 +1322,66 @@ function renderDealerModal() {
 // EVENT LISTENERS & INTERACTION HANDLERS
 // ==========================================================================
 function attachEventListeners() {
-  // Mobile Menu Toggle
+  // Mobile Nav Drawer Toggle
   const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const mobileCloseBtn = document.getElementById('mobile-nav-close-btn');
+  const mobileBackdrop = document.getElementById('mobile-nav-backdrop');
+
   if (mobileToggle) {
     mobileToggle.addEventListener('click', () => {
-      const navMenu = document.querySelector('.nav-menu');
-      if (navMenu) {
-        const isHidden = window.getComputedStyle(navMenu).display === 'none';
-        navMenu.style.display = isHidden ? 'flex' : 'none';
-        navMenu.style.flexDirection = 'column';
-        navMenu.style.position = 'absolute';
-        navMenu.style.top = '74px';
-        navMenu.style.left = '0';
-        navMenu.style.right = '0';
-        navMenu.style.background = '#0C0E12';
-        navMenu.style.padding = '20px';
-        navMenu.style.borderBottom = '1px solid var(--dark-border)';
+      state.mobileNavOpen = true;
+      renderApp();
+    });
+  }
+
+  if (mobileCloseBtn) {
+    mobileCloseBtn.addEventListener('click', () => {
+      state.mobileNavOpen = false;
+      renderApp();
+    });
+  }
+
+  if (mobileBackdrop) {
+    mobileBackdrop.addEventListener('click', (e) => {
+      if (e.target === mobileBackdrop) {
+        state.mobileNavOpen = false;
+        renderApp();
       }
+    });
+  }
+
+  const btnMobileDealer = document.getElementById('btn-mobile-dealer-modal');
+  if (btnMobileDealer) {
+    btnMobileDealer.addEventListener('click', () => {
+      state.mobileNavOpen = false;
+      state.activeDealerModal = true;
+      renderApp();
+    });
+  }
+
+  // Mobile Filter Drawer Toggle on Search Page
+  const toggleMobileFilters = document.getElementById('btn-toggle-mobile-filters');
+  const closeMobileFilters = document.getElementById('btn-close-mobile-filters');
+  const applyMobileFilters = document.getElementById('btn-apply-mobile-filters');
+
+  if (toggleMobileFilters) {
+    toggleMobileFilters.addEventListener('click', () => {
+      state.mobileFilterOpen = true;
+      renderApp();
+    });
+  }
+
+  if (closeMobileFilters) {
+    closeMobileFilters.addEventListener('click', () => {
+      state.mobileFilterOpen = false;
+      renderApp();
+    });
+  }
+
+  if (applyMobileFilters) {
+    applyMobileFilters.addEventListener('click', () => {
+      state.mobileFilterOpen = false;
+      renderApp();
     });
   }
 
@@ -1288,7 +1396,7 @@ function attachEventListeners() {
 
   // Open Car Detail Modal
   document.querySelectorAll('.btn-view-car').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', () => {
       const carId = btn.getAttribute('data-id');
       const foundCar = carsData.find(c => c.id === carId);
       if (foundCar) {
@@ -1488,6 +1596,7 @@ function attachEventListeners() {
       state.selectedTrans = [];
       state.maxPrice = 6000000;
       state.sortBy = 'featured';
+      state.mobileFilterOpen = false;
       renderApp();
     });
   }
