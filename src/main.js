@@ -1,6 +1,7 @@
 import { carsData, categoriesList, bangaloreLocalities } from './data/cars.js';
 import { dealersData } from './data/dealers.js';
 import { faqsData } from './data/faqs.js';
+import { brandsList } from './data/brands.js';
 
 // Application State
 const state = {
@@ -68,7 +69,7 @@ const icons = {
   transmission: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
   gauge: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m14 14-4-4"/><path d="M12 6v2"/><path d="M6 12H4"/></svg>`,
   owner: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
-  whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.301-.15-1.78-.879-2.056-.98-.276-.1-.476-.15-.677.15-.2.3-.777.98-.952 1.18-.175.2-.351.226-.652.075-.3-.15-1.267-.467-2.414-1.49-.893-.796-1.496-1.78-1.671-2.08-.175-.3-.019-.462.131-.611.136-.134.301-.35.452-.525.15-.175.2-.3.301-.5.1-.2.05-.375-.025-.525-.075-.15-.677-1.634-.928-2.238-.244-.589-.493-.51-.677-.52l-.577-.01c-.2 0-.526.075-.802.375-.276.3-1.053 1.03-1.053 2.512s1.078 2.912 1.228 3.113c.15.2 2.122 3.24 5.141 4.542.718.31 1.279.495 1.716.634.721.23 1.377.197 1.896.12.578-.087 1.78-.727 2.03-1.43.25-.702.25-1.303.175-1.43-.075-.126-.275-.201-.576-.351zM12.04 2C6.518 2 2.03 6.488 2.03 12.01c0 1.942.555 3.753 1.517 5.289L2 22l4.832-1.503c1.474.869 3.187 1.365 5.008 1.365 5.522 0 10.01-4.488 10.01-10.01 0-5.522-4.488-10.01-9.81-9.862z"/></svg>`,
+  whatsapp: `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.59 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67ZM8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7.01 8.49 7.01 9.71C7.01 10.93 7.9 12.11 8.02 12.28C8.15 12.44 9.77 14.94 12.25 16.01C12.84 16.27 13.3 16.42 13.66 16.53C14.25 16.72 14.79 16.69 15.22 16.63C15.7 16.56 16.7 16.03 16.91 15.44C17.12 14.86 17.12 14.36 17.06 14.25C17 14.15 16.83 14.09 16.58 13.97C16.33 13.84 15.1 13.23 14.87 13.15C14.65 13.06 14.48 13.02 14.31 13.27C14.15 13.52 13.67 14.09 13.52 14.25C13.38 14.42 13.23 14.44 12.98 14.32C12.73 14.19 11.93 13.93 10.98 13.08C10.24 12.42 9.74 11.61 9.6 11.36C9.45 11.11 9.58 10.98 9.71 10.85C9.82 10.74 9.96 10.56 10.08 10.41C10.21 10.27 10.25 10.16 10.33 10C10.42 9.83 10.37 9.69 10.31 9.56C10.25 9.44 9.76 8.23 9.55 7.74C9.35 7.26 9.15 7.33 8.99 7.32L8.53 7.33Z"/></svg>`,
   star: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
   search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
   check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`,
@@ -103,14 +104,8 @@ function renderHeader() {
     <header class="site-header">
       <div class="header-container">
         <!-- Logo -->
-        <a href="#/" class="brand-logo">
-          <div class="brand-icon-box">
-            ${icons.car}
-          </div>
-          <div class="brand-text">
-            <span class="brand-name">KAARZO</span>
-            <span class="brand-tagline">Bangalore Dealerships</span>
-          </div>
+        <a href="#/" class="brand-logo" aria-label="KAARZO - Home">
+          <img src="/src/assets/logo/kaarzo_logo.png" alt="KAARZO" class="brand-logo-img" />
         </a>
 
         <!-- Bangalore Locality Indicator -->
@@ -160,12 +155,9 @@ function renderMobileNavDrawer() {
     <div class="mobile-nav-backdrop ${state.mobileNavOpen ? 'active' : ''}" id="mobile-nav-backdrop">
       <div class="mobile-nav-drawer">
         <div class="mobile-nav-header">
-          <div class="brand-logo">
-            <div class="brand-icon-box" style="width: 32px; height: 32px;">
-              ${icons.car}
-            </div>
-            <span class="brand-name" style="font-size: 1.25rem;">KAARZO</span>
-          </div>
+          <a href="#/" class="brand-logo" aria-label="KAARZO - Home">
+            <img src="/src/assets/logo/kaarzo_logo.png" alt="KAARZO" class="brand-logo-img" style="height: 52px; max-width: 160px;" />
+          </a>
           <button class="mobile-nav-close" id="mobile-nav-close-btn" aria-label="Close Navigation">✕</button>
         </div>
 
@@ -206,14 +198,10 @@ function renderFooter() {
         <div class="footer-grid">
           <!-- Col 1: About Brand -->
           <div>
-            <div class="brand-logo" style="margin-bottom: 16px;">
-              <div class="brand-icon-box">
-                ${icons.car}
-              </div>
-              <div class="brand-text">
-                <span class="brand-name">KAARZO</span>
-                <span class="brand-tagline">Bangalore Dealerships</span>
-              </div>
+            <div style="margin-bottom: 18px;">
+              <a href="#/" class="brand-logo" aria-label="KAARZO - Home">
+                <img src="/src/assets/logo/kaarzo_logo.png" alt="KAARZO" class="brand-logo-img" style="height: 72px; max-width: 220px;" />
+              </a>
             </div>
             <p style="font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px;">
               KAARZO is Bangalore’s premier automotive marketplace bridging car buyers directly with verified, certified local car dealerships across Karnataka. 100% RTO verified and 200-point inspected inventory.
@@ -313,15 +301,6 @@ function renderCarCard(car) {
       <!-- Media Showcase -->
       <div class="car-card-media">
         <img src="${car.image}" alt="${car.title}" class="car-card-image" loading="lazy" />
-        
-        <div class="car-badge-overlay">
-          <span class="badge-tag badge-gold">${car.badge}</span>
-        </div>
-
-        <div class="rto-badge" title="Registered RTO">
-          ${icons.shield}
-          <span>${car.rto.split(' ')[0]} • ${car.locality}</span>
-        </div>
       </div>
 
       <!-- Card Body -->
@@ -362,8 +341,8 @@ function renderCarCard(car) {
         <!-- Dealer Mini Bar -->
         <div class="car-dealer-info">
           <div class="dealer-name">
-            ${icons.shield}
-            <span>${car.dealer.name}</span>
+            <span class="dealer-title">${car.dealer.name}</span>
+            <span class="dealer-location">${car.rto.split(' ')[0]} • ${car.locality}</span>
           </div>
           <div class="dealer-rating">
             ${icons.star}
@@ -404,9 +383,6 @@ function renderHomePage() {
     <section class="hero-section">
       <div class="container hero-grid">
         <div class="hero-content">
-          <div class="hero-pill">
-            ${icons.shield} Bangalore’s Verified Dealership Network
-          </div>
           <h1 class="hero-title">
             Buy Verified Indian Cars from <span class="highlight">Top Bangalore Dealers</span>
           </h1>
@@ -486,6 +462,31 @@ function renderHomePage() {
               <div class="stat-label">Bangalore Rating</div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPLORE CARS BY BRAND SECTION -->
+    <section class="section-padding explore-brands-section">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="section-tag">Popular Makes</span>
+          <h2 class="section-title">Explore Cars By Brand</h2>
+          <p class="section-subtitle">
+            Browse verified, certified pre-owned cars from India's most trusted and affordable automobile manufacturers in Bangalore.
+          </p>
+        </div>
+
+        <div class="explore-brands-grid">
+          ${brandsList.map(brand => `
+            <div class="explore-brand-card" data-brand="${brand.name}" role="button" tabindex="0" title="Explore ${brand.name} cars in Bangalore">
+              <div class="explore-brand-logo-box">
+                <img src="${brand.image}" alt="${brand.name} logo" class="explore-brand-img" loading="lazy" />
+              </div>
+              <h3 class="explore-brand-title">${brand.name}</h3>
+              <span class="explore-brand-count">${brand.count} Cars</span>
+            </div>
+          `).join('')}
         </div>
       </div>
     </section>
@@ -1115,10 +1116,6 @@ function renderCarModal() {
 
         <div class="modal-car-hero">
           <img src="${car.image}" alt="${car.title}">
-          <div style="position: absolute; top: 14px; left: 14px; display: flex; gap: 8px;">
-            <span class="badge-tag badge-gold">${car.badge}</span>
-            <span class="badge-tag badge-dark">${car.rto}</span>
-          </div>
         </div>
 
         <div class="modal-car-content">
@@ -1263,9 +1260,7 @@ function renderDealerModal() {
 
         <div style="padding: 30px 24px;">
           <div style="text-align: center; margin-bottom: 20px;">
-            <div class="about-icon-box" style="margin-bottom: 10px;">
-              ${icons.shield}
-            </div>
+            <img src="/src/assets/logo/kaarzo_logo.png" alt="KAARZO" style="height: 62px; width: auto; object-fit: contain; margin-bottom: 12px; display: inline-block; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.12));" />
             <h2 style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 800;">
               Register Your Dealership
             </h2>
@@ -1391,6 +1386,18 @@ function attachEventListeners() {
       const cat = btn.getAttribute('data-cat');
       state.selectedCategory = cat;
       renderApp();
+    });
+  });
+
+  // Brand Cards Click to Filter
+  document.querySelectorAll('.explore-brand-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const brandName = card.getAttribute('data-brand');
+      if (brandName) {
+        // Find matching cars by brand or set search query
+        state.searchQuery = brandName === 'Tata Motors' ? 'Tata' : (brandName === 'Maruti Suzuki' ? 'Maruti' : brandName);
+        window.location.hash = '#/buy-cars';
+      }
     });
   });
 

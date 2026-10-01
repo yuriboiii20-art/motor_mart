@@ -133,7 +133,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 74px;
+  height: 78px;
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 24px;
@@ -143,50 +143,22 @@ img {
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
   flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.brand-icon-box {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--brand-gold) 0%, #D49B1A 100%);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px var(--brand-gold-glow);
-  flex-shrink: 0;
+.brand-logo:hover {
+  transform: scale(1.05);
 }
 
-.brand-icon-box svg {
-  width: 22px;
-  height: 22px;
-  fill: #0C0E12;
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.brand-name {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  color: #FFFFFF;
-  line-height: 1;
-}
-
-.brand-tagline {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--brand-gold);
-  text-transform: uppercase;
-  margin-top: 2px;
+.brand-logo-img {
+  height: 60px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.5));
+  display: block;
 }
 
 /* Location Badge */
@@ -639,6 +611,101 @@ img {
   color: #94A3B8;
 }
 
+/* ==========================================================================
+   EXPLORE CARS BY BRAND SECTION
+   ========================================================================== */
+.explore-brands-section {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--light-border);
+}
+
+.explore-brands-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-top: 10px;
+}
+
+@media (max-width: 1100px) {
+  .explore-brands-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .explore-brands-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .explore-brands-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+.explore-brand-card {
+  background: #FFFFFF;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-lg);
+  padding: 24px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  position: relative;
+  user-select: none;
+}
+
+.explore-brand-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--brand-gold);
+  box-shadow: 0 12px 24px rgba(246, 196, 61, 0.15), 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.explore-brand-logo-box {
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.explore-brand-img {
+  max-width: 68px;
+  max-height: 48px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.explore-brand-card:hover .explore-brand-img {
+  transform: scale(1.12);
+}
+
+.explore-brand-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.explore-brand-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #D97706;
+  letter-spacing: 0.2px;
+}
+
 /* Interactive Category Tabs */
 .category-tabs-container {
   display: flex;
@@ -717,23 +784,27 @@ img {
 /* Card Visual Frame */
 .car-card-media {
   position: relative;
-  background: #161A20;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--light-border);
   height: 220px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 16px 20px;
 }
 
 .car-card-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.14));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
 }
 
 .car-card:hover .car-card-image {
-  transform: scale(1.05);
+  transform: scale(1.06) translateY(-3px);
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.2));
 }
 
 .car-badge-overlay {
@@ -869,11 +940,21 @@ img {
 }
 
 .dealer-name {
-  font-weight: 600;
-  color: var(--text-secondary);
   display: flex;
-  align-items: center;
-  gap: 4px;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dealer-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.84rem;
+}
+
+.dealer-location {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 .dealer-rating {
@@ -882,29 +963,41 @@ img {
   display: flex;
   align-items: center;
   gap: 3px;
+  font-size: 0.74rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dealer-rating svg {
+  width: 13px;
+  height: 13px;
+  fill: #D97706;
+  flex-shrink: 0;
 }
 
 /* Action Buttons Dual Setup */
 .car-card-actions {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
+  grid-template-columns: 1fr 42px;
+  gap: 8px;
   margin-top: auto;
 }
 
 .btn-card-details {
   background: #0C0E12;
   color: #FFFFFF;
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: var(--radius-md);
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 700;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 44px;
+  height: 38px;
+  min-height: 38px;
+  transition: all 0.2s ease;
 }
 
 .btn-card-details:hover {
@@ -913,23 +1006,31 @@ img {
 }
 
 .btn-card-whatsapp {
-  background: rgba(37, 211, 102, 0.12);
-  color: #15803D;
-  border: 1px solid rgba(37, 211, 102, 0.3);
-  padding: 10px 16px;
+  background: #25D366;
+  color: #FFFFFF;
+  width: 42px;
+  height: 38px;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
-  font-weight: 700;
-  min-height: 44px;
+  border: none;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-card-whatsapp svg {
+  width: 20px;
+  height: 20px;
+  fill: #FFFFFF;
+  flex-shrink: 0;
 }
 
 .btn-card-whatsapp:hover {
-  background: var(--whatsapp-green);
-  color: #FFFFFF;
-  border-color: var(--whatsapp-green);
+  background: #1EBE5D;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
 }
 
 /* ==========================================================================
@@ -1486,13 +1587,19 @@ img {
 .modal-car-hero {
   position: relative;
   height: 360px;
-  background: #111418;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--light-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 32px;
 }
 
 .modal-car-hero img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.16));
 }
 
 .modal-car-content {
@@ -1654,8 +1761,12 @@ img {
 @media (max-width: 768px) {
   /* Header Mobile */
   .header-container {
-    height: 64px;
+    height: 68px;
     padding: 0 16px;
+  }
+  .brand-logo-img {
+    height: 48px;
+    max-width: 150px;
   }
   .brand-name {
     font-size: 1.35rem;
