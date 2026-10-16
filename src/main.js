@@ -105,7 +105,7 @@ function renderHeader() {
       <div class="header-container">
         <!-- Logo -->
         <a href="#/" class="brand-logo" aria-label="KAARZO - Home">
-          <img src="/src/assets/logo/kaarzo_logo.png" alt="KAARZO" class="brand-logo-img" />
+          <img src="/assets/logo/kaarzo_logo.png" alt="KAARZO" class="brand-logo-img" />
         </a>
 
         <!-- Bangalore Locality Indicator -->
@@ -156,7 +156,7 @@ function renderMobileNavDrawer() {
       <div class="mobile-nav-drawer">
         <div class="mobile-nav-header">
           <a href="#/" class="brand-logo" aria-label="KAARZO - Home">
-            <img src="/src/assets/logo/kaarzo_logo.png" alt="KAARZO" class="brand-logo-img" style="height: 52px; max-width: 160px;" />
+            <img src="/assets/logo/kaarzo_logo.png" alt="KAARZO" class="brand-logo-img" style="height: 52px; max-width: 160px;" />
           </a>
           <button class="mobile-nav-close" id="mobile-nav-close-btn" aria-label="Close Navigation">✕</button>
         </div>
@@ -200,7 +200,7 @@ function renderFooter() {
           <div>
             <div style="margin-bottom: 18px;">
               <a href="#/" class="brand-logo" aria-label="KAARZO - Home">
-                <img src="/src/assets/logo/kaarzo_logo.png" alt="KAARZO" class="brand-logo-img" style="height: 72px; max-width: 220px;" />
+                <img src="/assets/logo/kaarzo_logo.png" alt="KAARZO" class="brand-logo-img" style="height: 72px; max-width: 220px;" />
               </a>
             </div>
             <p style="font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px;">
@@ -1260,7 +1260,7 @@ function renderDealerModal() {
 
         <div style="padding: 30px 24px;">
           <div style="text-align: center; margin-bottom: 20px;">
-            <img src="/src/assets/logo/kaarzo_logo.png" alt="KAARZO" style="height: 62px; width: auto; object-fit: contain; margin-bottom: 12px; display: inline-block; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.12));" />
+            <img src="/assets/logo/kaarzo_logo.png" alt="KAARZO" style="height: 62px; width: auto; object-fit: contain; margin-bottom: 12px; display: inline-block; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.12));" />
             <h2 style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 800;">
               Register Your Dealership
             </h2>
