@@ -372,7 +372,7 @@ img {
 .hero-section {
   position: relative;
   background-color: var(--dark-bg);
-  background-image: linear-gradient(to bottom, rgba(12, 14, 18, 0.8), rgba(12, 14, 18, 0.96)), url('/src/assets/cars/kaarzo_hero_car_1790786058193.jpg');
+  background-image: linear-gradient(to bottom, rgba(12, 14, 18, 0.8), rgba(12, 14, 18, 0.96)), url('/assets/cars/kaarzo_hero_car_1790786058193.jpg');
   background-size: cover;
   background-position: center 25%;
   padding: 80px 0 100px;
